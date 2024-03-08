@@ -12,31 +12,27 @@ func main() {
 	fmt.Println(result) // Output: zpadintoqefwjy
 }
 
-func findUniqueCharacters(str1, str2 string) string {
-	characters := make(map[rune]bool)
-	order := []rune{}
+func main() {
+    arg := os.Args[1:]
+    if len(arg) != 2 {
+        return
+    }
+    if len(arg) == 2 {
+        str1 , str2 := chackingchars(arg[0]), chackingchars(arg[1])
+        res := str1 + str2
+        res = chackingchars(res)
+        fmt.Println(res)
+    }
+}
 
-	// Iterate through first string and add characters to map
-	for _, char := range str1 {
-		if _, exists := characters[char]; !exists {
-			characters[char] = true
-			order = append(order, char)
-		}
-	}
-
-	// Iterate through second string and add characters to map
-	for _, char := range str2 {
-		if _, exists := characters[char]; !exists {
-			characters[char] = true
-			order = append(order, char)
-		}
-	}
-
-	// Form the result string using the order slice
-	result := ""
-	for _, char := range order {
-		result += string(char)
-	}
-
-	return result
+func chackingchars(s string) string {
+    r := []rune(s)
+    for i := 0; i < len(r); i++ {
+        for j := i + 1; j < len(r); j++ {
+            if r[i] == r[j] {
+                r = append(r[:j], r[j+1:]...)
+            }
+        }
+    }
+    return string(r)
 }
