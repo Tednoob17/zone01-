@@ -7,7 +7,6 @@ func NotDecimal(dec string) string {
 		return "\n"
 	}
 
-	// Check if the input is a valid float number
 	var num float64
 	var isNegative bool
 	var err error
@@ -23,16 +22,10 @@ func NotDecimal(dec string) string {
 		}
 	}
 
-	// If there's no decimal point or only zero after the decimal point
-	// If there's no decimal point or only zero after the decimal point
-	if !containsDecimal(dec) || (len(dec) > 1 && dec[len(dec)-2:] == ".0") {
-		return dec + "\n"
-	}
-	{
+	if !containsDecimal(dec) || dec[len(dec)-1] == '.' || (len(dec) > 1 && dec[len(dec)-2] == '.' && dec[len(dec)-1] == '0') {
 		return dec + "\n"
 	}
 
-	// Convert the number to integer by removing the decimal point
 	integerPart := int(num)
 	if isNegative {
 		integerPart *= -1
