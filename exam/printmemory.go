@@ -1,43 +1,55 @@
-package piscine
+package main
 
 import "github.com/01-edu/z01"
 
-func PrintMemory(tab [10]byte) {
-	str := ""
-	for i, byt := range tab {
-		nb := convertHex(int(rune(byt)))
-		printWithoutNewLine(nb)
-		if ((i+1)%4 == 0 && i != 0) || i == len(tab)-1 {
+func PrintMemory(arr [10]byte) {
+	res := ""
+	for j := 0; j < len(arr); j++ {
+		res = converthex(int(arr[j]))
+		printstr(res)
+		if ((j+1)%4 == 0 && j != 0) || j == len(arr)-1 {
 			z01.PrintRune('\n')
+
 		} else {
 			z01.PrintRune(' ')
 		}
 
-		if byt >= 33 && byt <= 126 {
-			str += string(rune(byt))
+	}
+	for _, v := range arr {
+		if v >= 33 && v <= 126 {
+			printstr(string(v))
 		} else {
-			str += "."
+			z01.PrintRune('.')
 		}
 	}
-	printStr(str)
+	z01.PrintRune('\n')
+
 }
 
-func convertHex(nb int) string {
-	numbers := []rune(nil)
+func converthex(nb int) string {
+	tab := ""
 	base := "0123456789abcdef"
+	if nb == 0 {
+		tab = "00" + tab
+		return tab
+	}
 	for nb != 0 {
-		numbers = append(numbers, rune(base[nb%16]))
-		nb /= 16
+		tab = string(base[nb%16]) + tab
+		nb = nb / 16
 	}
-	for i := 0; i < len(numbers)/2; i++ {
-		numbers[i], numbers[len(numbers)-i-1] = numbers[len(numbers)-i-1], numbers[i]
+
+	if len(tab) == 1 {
+		return "0" + tab
 	}
-	nbHex := string(numbers)
-	return nbHex
+
+	return tab
 }
 
-func printWithoutNewLine(s string) {
-	for _, char := range s {
-		z01.PrintRune(char)
+func printstr(s string) {
+	for _, v := range s {
+		z01.PrintRune(v)
 	}
+}
+func main() {
+	PrintMemory([10]byte{'h', 'e', 'l', 'l', 'o', 16, 21, '*'})
 }
