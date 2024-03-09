@@ -4,9 +4,10 @@ import (
 	"fmt"
 )
 
-func main() {
-	str1 := "zpadinton"
-	str2 := "paqefwtdjetyiytjneytjoeyjnejeyj"
+func main() { 
+	str1 := "zpadinton"  "paqefwtdjetyiytjneytjoeyjnejeyj" 
+    
+	str2 :=
 
 	result := findUniqueCharacters(str1, str2)
 	fmt.Println(result) // Output: zpadintoqefwjy

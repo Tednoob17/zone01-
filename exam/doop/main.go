@@ -8,37 +8,43 @@ import (
 
 func main() {
 	if len(os.Args) == 4 {
-		os.Args = os.Args[1:]
-		a, errA := strconv.Atoi(os.Args[0])
-		b, errB := strconv.Atoi(os.Args[2])
-		if errA != nil {
-			a = 0
+		a, err := strconv.Atoi(os.Args[1])
+		if err != nil {
+			return
 		}
-		if errB != nil {
-			b = 0
+		b, err := strconv.Atoi(os.Args[3])
+		if err != nil {
+			return
 		}
-
-		switch os.Args[1] {
+		operator := os.Args[2]
+		switch operator {
 		case "+":
-			fmt.Println(a + b)
-		case "*":
-			fmt.Println(a * b)
+			result := a + b
+			if (result > a) == (b > 0) {
+				fmt.Println(result)
+			}
 		case "-":
-			fmt.Println(a - b)
+			result := a - b
+			if (result < a) == (b > 0) {
+				fmt.Println(result)
+			}
+		case "*":
+			result := a * b
+			if a == 0 || (result/a == b) {
+				fmt.Println(result)
+			}
 		case "/":
-			if b != 0 {
-				fmt.Println(a / b)
-			} else {
+			if b == 0 {
 				fmt.Println("No division by 0")
+			} else {
+				fmt.Println(a / b)
 			}
 		case "%":
-			if b != 0 {
-				fmt.Println(a % b)
+			if b == 0 {
+				fmt.Println("No modulo by 0")
 			} else {
-				fmt.Println("No Modulo by 0")
+				fmt.Println(a % b)
 			}
-		default:
-			fmt.Println(0)
 		}
 	}
 }
