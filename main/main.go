@@ -1,31 +1,22 @@
 package main
 
-import (
-	"fmt"
-	"os"
-)
+func RevConcatAlternate(slice1, slice2 []int) []int {
+	len1 := len(slice1)
+	len2 := len(slice2)
 
-func main() {
-	if len(os.Args) != 3 {
-		str1 := os.Args[1]
-		str2 := os.Args[2]
-		fmt.Println(findchracter(str1, str2))
+	maxlen := len1
+	result := make([]int, 0, len1+len2)
+
+	if len2 > maxlen {
+		maxlen = len2
 	}
-}
-func findchracter(str1, str2 string) string {
-	result := ""
-	for _, char := range str1 {
-		if continusrune(str2, char) && !continusrune(result, char) {
-			result += string(char)
+	for i := maxlen; i >= 0; i-- {
+		if i < len1 {
+			result = append(result, slice1[i])
+		}
+		if i < len2 {
+			result = append(result, slice2[i])
 		}
 	}
 	return result
-}
-func continusrune(str1 string, char rune) bool {
-	for _, i := range str1 {
-		if i == char {
-			return false
-		}
-	}
-	return true
 }
